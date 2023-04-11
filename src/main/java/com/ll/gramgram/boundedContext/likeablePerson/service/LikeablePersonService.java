@@ -1,6 +1,5 @@
 package com.ll.gramgram.boundedContext.likeablePerson.service;
 
-import com.ll.gramgram.DataNotFoundException;
 import com.ll.gramgram.base.rsData.RsData;
 import com.ll.gramgram.boundedContext.instaMember.entity.InstaMember;
 import com.ll.gramgram.boundedContext.instaMember.service.InstaMemberService;
@@ -11,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -53,17 +52,23 @@ public class LikeablePersonService {
     }
 
     @Transactional
-    public LikeablePerson getLikeableperson(Integer id) {
-        Optional<LikeablePerson> likeablePerson = likeablePersonRepository.findById(id);
-        if (likeablePerson.isPresent()) {
-            return likeablePerson.get();
-        } else {
-            throw new DataNotFoundException("likeablePerson not found");
-        }
+    public Optional<LikeablePerson> findById(Long id) {
+        return likeablePersonRepository.findById(id);
     }
-
     @Transactional
-    public void delete(LikeablePerson likeablePerson) {
+    public RsData delete(Member actor, Long id) { // actor는 활동자를 의미
+        LikeablePerson likeablePerson = findById(id).orElse(null);
+
+        if (likeablePerson == null) {
+            return RsData.of("F-1", "이미 취소된 호감입니다.");
+        }
+        if ( !Objects.equals(likeablePerson.getFromInstaMember().getId(), actor.getInstaMember().getId()) ) {
+            return RsData.of("F-2", "삭제 권한이 없습니다.");
+        }
+
+        String toInstaMemberUsername = likeablePerson.getToInstaMember().getUsername();
         likeablePersonRepository.delete(likeablePerson);
+
+        return RsData.of("S-1", "%s님에 대한 호감을 취소하였습니다.".formatted(toInstaMemberUsername));
     }
 }
