@@ -74,7 +74,6 @@ public class Rq {
 
     // 뒤로가기 + 메세지
     public String historyBack(RsData rsData) {
-        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 200이 아니라 400으로 응답코드가 지정되도록
         return historyBack(rsData.getMsg());
     }
 

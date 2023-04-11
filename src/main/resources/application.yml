@@ -1,7 +1,6 @@
 spring:
   profiles:
     active: dev
-    include: secret
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://127.0.0.1:3306/gram__dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
@@ -12,7 +11,7 @@ spring:
       client:
         registration:
           kakao:
-            clientId: '카카오 클라이언트 ID'
+            clientId: 88673ebfe6f0ff2d97f6c579558889fd
             scope:
             client-name: Kakao
             authorization-grant-type: authorization_code
@@ -35,6 +34,6 @@ spring:
 logging:
   level:
     root: INFO
-    com.ll.gramgram: DEBUG
+    com.ll.gramgram_ai: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
