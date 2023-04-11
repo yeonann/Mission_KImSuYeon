@@ -31,11 +31,12 @@ public class LikeablePersonService {
             return RsData.of("F-1", "본인을 호감상대로 등록할 수 없습니다.");
         }
 
+        InstaMember fromInstaMember = member.getInstaMember();
         InstaMember toInstaMember = instaMemberService.findByUsernameOrCreate(username).getData();
 
         LikeablePerson likeablePerson = LikeablePerson
                 .builder()
-                .fromInstaMember(member.getInstaMember()) // 호감을 표시하는 사람의 인스타 멤버
+                .fromInstaMember(fromInstaMember) // 호감을 표시하는 사람의 인스타 멤버
                 .fromInstaMemberUsername(member.getInstaMember().getUsername()) // 중요하지 않음
                 .toInstaMember(toInstaMember) // 호감을 받는 사람의 인스타 멤버
                 .toInstaMemberUsername(toInstaMember.getUsername()) // 중요하지 않음
