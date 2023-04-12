@@ -45,7 +45,13 @@ public class LikeablePersonService {
 
         for (LikeablePerson fromLikeablePerson : fromInstaMember.getFromLikeablePeople()) {
             if (fromLikeablePerson.getToInstaMember().getUsername().equals(username)) {
-                return RsData.of("F-3", "이미 등록된 호감상대입니다.");
+                if (fromLikeablePerson.getAttractiveTypeCode() == attractiveTypeCode) {
+                    return RsData.of("F-3", "이미 등록된 호감상대입니다.");
+                } else {
+                    likeablePerson.setAttractiveTypeCode(attractiveTypeCode);
+                    likeablePersonRepository.save(likeablePerson);
+                    return RsData.of("S-2", "입력하신 인스타유저(%s)의 매력포인트가 변경되었습니다".formatted(username), likeablePerson);  // TODO : 기존의 항목이 남아있다.
+                }
             }
         }
 
