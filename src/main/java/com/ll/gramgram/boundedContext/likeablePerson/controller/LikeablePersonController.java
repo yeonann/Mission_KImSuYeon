@@ -70,10 +70,10 @@ public class LikeablePersonController {
     public String delete(@PathVariable Long id) {
 
 
-        RsData deleteRs = likeablePersonService.delete(rq.getMember(), id);
-        if (deleteRs.isFail()) {
-            return rq.historyBack(deleteRs);
+        RsData deleteRsData = likeablePersonService.delete(rq.getMember(), id);
+        if (deleteRsData.isFail()) {
+            return rq.historyBack(deleteRsData);
         }
-        return rq.redirectWithMsg("/likeablePerson/list", deleteRs);
+        return rq.redirectWithMsg("/likeablePerson/list", deleteRsData);
     }
 }
