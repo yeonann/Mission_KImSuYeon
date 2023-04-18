@@ -41,13 +41,13 @@ public class LikeablePersonController {
 
     @PostMapping("/add")
     public String add(@Valid AddForm addForm) {
-        RsData<LikeablePerson> createRsData = likeablePersonService.like(rq.getMember(), addForm.getUsername(), addForm.getAttractiveTypeCode());
+        RsData<LikeablePerson> rsData = likeablePersonService.like(rq.getMember(), addForm.getUsername(), addForm.getAttractiveTypeCode());
 
-        if (createRsData.isFail()) {
-            return rq.historyBack(createRsData);
+        if (rsData.isFail()) {
+            return rq.historyBack(rsData);
         }
 
-        return rq.redirectWithMsg("/likeablePerson/list", createRsData);
+        return rq.redirectWithMsg("/likeablePerson/list", rsData);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -69,8 +69,7 @@ public class LikeablePersonController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
 
-
-        RsData deleteRsData = likeablePersonService.delete(rq.getMember(), id);
+        RsData deleteRsData = likeablePersonService.canDelete(rq.getMember(), id);
         if (deleteRsData.isFail()) {
             return rq.historyBack(deleteRsData);
         }
