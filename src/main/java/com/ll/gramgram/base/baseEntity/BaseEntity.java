@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-@MappedSuperclass // 공통 상위 클래스에는 붙여야하는 어노테이션
+@MappedSuperclass
 @Getter
 @SuperBuilder
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @ToString
-public class BaseEntity {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
