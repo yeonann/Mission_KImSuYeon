@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 @Configuration
-@Profile({"dev", "test"})
+@Profile({"dev", "test"}) // 개발, 테스트 환경에서 실행되도록
 public class NotProd {
     @Bean
     CommandLineRunner initData(
