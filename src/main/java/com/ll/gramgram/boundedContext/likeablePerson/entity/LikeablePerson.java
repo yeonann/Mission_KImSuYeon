@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @ToString(callSuper = true)
 public class LikeablePerson extends BaseEntity {
-    private LocalDateTime modifyUnlockDate;
+    private LocalDateTime modifyUnlockDate; // 호감수정이 가능해지는 시간
 
     @ManyToOne
     @ToString.Exclude
@@ -40,7 +40,10 @@ public class LikeablePerson extends BaseEntity {
 
     // 초 단위에서 올림 해주세요.
     public String getModifyUnlockDateRemainStrHuman() {
-        return "2시간 16분";
+        int hour = modifyUnlockDate.getHour();
+        int minute = modifyUnlockDate.getMinute();
+
+        return "%d시 %d분".formatted(hour, minute);
     }
 
     public RsData updateAttractionTypeCode(int attractiveTypeCode) {

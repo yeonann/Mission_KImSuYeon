@@ -16,8 +16,8 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.Date;
 
-@Component
-@RequestScope
+@Component // 클래스를 빈으로 등록, 타임리프에서 @로 접근 가능
+@RequestScope // 정의하면 요청이 발생할 때마다 Bean 객체가 생성되어 자동으로 주입 -> 언제나 IOC 컨테이너에 담겨있다.
 public class Rq {
     private final MemberService memberService;
     private final HttpServletRequest req;
