@@ -66,7 +66,7 @@ public class InstaMemberService {
 
         return opInstaMember
                 .map(instaMember -> RsData.of("S-2", "인스타계정이 등록되었습니다.", instaMember))
-                .orElseGet(() -> create(username, "U")); // 성별은 알 수 없으니 unknown
+                .orElseGet(() -> create(username, "U"));
     }
 
     @Transactional

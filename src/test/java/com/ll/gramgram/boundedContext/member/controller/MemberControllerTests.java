@@ -41,9 +41,9 @@ public class MemberControllerTests {
     @DisplayName("로그인 폼")
     void t004() throws Exception {
         // WHEN
-        ResultActions resultActions = mvc // mvc를 통해서
-                .perform(get("/usr/member/login?admin")) // 해당 url을 get 요청으로 수행
-                .andDo(print()); // 확인용
+        ResultActions resultActions = mvc
+                .perform(get("/usr/member/login?admin"))
+                .andDo(print());
 
         // THEN
         resultActions
@@ -76,7 +76,7 @@ public class MemberControllerTests {
 
         // 세션에 접근해서 user 객체를 가져온다.
         MvcResult mvcResult = resultActions.andReturn();
-        HttpSession session = mvcResult.getRequest().getSession(false);// 원래 getSession 을 하면, 없을 경우에 만들어서라도 준다. false 는 없으면 만들지 말라는 뜻
+        HttpSession session = mvcResult.getRequest().getSession(false);// 원래 getSession 을 하면, 만약에 없을 경우에 만들어서라도 준다., false 는 없으면 만들지 말라는 뜻
         SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
         User user = (User) securityContext.getAuthentication().getPrincipal();
 
@@ -85,6 +85,6 @@ public class MemberControllerTests {
         // THEN
         resultActions
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlPattern("/**")); // 이곳으로 이동하면 로그인 성공을 의미
+                .andExpect(redirectedUrlPattern("/**"));
     }
 }

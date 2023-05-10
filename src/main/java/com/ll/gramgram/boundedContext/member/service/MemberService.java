@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true) // 전체적으로 트랜잭션 환경을 만들어주기 위해 클래스단에 읽기 전용으로 적용
+@Transactional(readOnly = true) // 아래 메서드들이 전부 readonly 라는 것을 명시, 나중을 위해
 public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
@@ -24,7 +24,7 @@ public class MemberService {
         return memberRepository.findByUsername(username);
     }
 
-    @Transactional // DB 데이터의 생성·변경·삭제는 메서드에 붙여준다. (readOnly = false)
+    @Transactional // SELECT 이외의 쿼리에 대한 가능성이 아주 조금이라도 있으면 붙인다.
     // 일반 회원가입(소셜 로그인을 통한 회원가입이 아님)
     public RsData<Member> join(String username, String password) {
         // "GRAMGRAM" 해당 회원이 일반회원가입으로 인해 생성되었다는걸 나타내기 위해서
